@@ -1,3 +1,109 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --accent: #f59e0b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --surface: #1e1b4b;
+    --surface-light: #312e81;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Pulse animation for waiting */
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.7; }
+    100% { transform: scale(0.95); opacity: 1; }
+}
+
+.animate-pulse-ring {
+    animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* Countdown timer animation */
+@keyframes countdown-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.animate-countdown {
+    animation: countdown-pulse 1s ease-in-out infinite;
+}
+
+/* Slide in animation */
+@keyframes slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+    animation: slide-up 0.4s ease-out forwards;
+}
+
+/* Fade in */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Queue number display animation */
+@keyframes number-pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-number-pop {
+    animation: number-pop 0.5s ease-out forwards;
+}
+
+/* Glass effect */
+.glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Receipt print styles */
+@media print {
+    body * { visibility: hidden; }
+    .receipt-print, .receipt-print * { visibility: visible; }
+    .receipt-print {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80mm;
+        font-size: 12px;
+    }
+    .no-print { display: none !important; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.5);
+}

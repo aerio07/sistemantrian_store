@@ -18,7 +18,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        $cashiers = \App\Models\User::select('id', 'name', 'email')->get();
+
         return Inertia::render('Auth/Login', [
+            'cashiers' => $cashiers,
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
         ]);
@@ -33,7 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended('/cashier');
     }
 
     /**
@@ -47,6 +50,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

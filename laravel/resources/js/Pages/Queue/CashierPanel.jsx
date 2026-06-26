@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function CashierPanel() {
+    const user = usePage().props.auth.user;
     const [activeQueue, setActiveQueue] = useState(null);
     const [waitingQueues, setWaitingQueues] = useState([]);
     const [stats, setStats] = useState({ waiting: 0, completed: 0, cancelled: 0, total: 0 });
@@ -175,25 +177,51 @@ export default function CashierPanel() {
                         </p>
                     </div>
 
-                    {/* Stats */}
-                    <div className="flex gap-4">
-                        <div className="text-center">
-                            <p className="text-2xl font-bold text-amber-400">
-                                {stats.waiting}
-                            </p>
-                            <p className="text-white/40 text-xs">Menunggu</p>
+                    <div className="flex items-center gap-8">
+                        {/* Stats */}
+                        <div className="flex gap-4">
+                            <div className="text-center">
+                                <p className="text-2xl font-bold text-amber-400">
+                                    {stats.waiting}
+                                </p>
+                                <p className="text-white/40 text-xs">Menunggu</p>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-2xl font-bold text-emerald-400">
+                                    {stats.completed}
+                                </p>
+                                <p className="text-white/40 text-xs">Selesai</p>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-2xl font-bold text-white/60">
+                                    {stats.total}
+                                </p>
+                                <p className="text-white/40 text-xs">Total</p>
+                            </div>
                         </div>
-                        <div className="text-center">
-                            <p className="text-2xl font-bold text-emerald-400">
-                                {stats.completed}
-                            </p>
-                            <p className="text-white/40 text-xs">Selesai</p>
-                        </div>
-                        <div className="text-center">
-                            <p className="text-2xl font-bold text-white/60">
-                                {stats.total}
-                            </p>
-                            <p className="text-white/40 text-xs">Total</p>
+
+                        {/* Divider */}
+                        <div className="h-8 w-px bg-white/10 hidden sm:block"></div>
+
+                        {/* Cashier Profile & Logout */}
+                        <div className="flex items-center gap-4">
+                            <div className="text-right hidden sm:block">
+                                <p className="text-white font-semibold text-sm">
+                                    {user?.name || "Kasir"}
+                                </p>
+                                <p className="text-indigo-300/60 text-xs">
+                                    {user?.email}
+                                </p>
+                            </div>
+
+                            <Link
+                                href="/logout"
+                                method="post"
+                                as="button"
+                                className="px-4 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white border border-rose-500/20 hover:border-transparent text-xs font-bold tracking-wider uppercase transition-all duration-200"
+                            >
+                                Keluar
+                            </Link>
                         </div>
                     </div>
                 </div>
